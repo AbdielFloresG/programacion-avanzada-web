@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            margin: 20;
+            padding: 20;
+            box-sizing: border-box;
+            align-items: center;
+            background-color: whitesmoke;
+        }
+        canvas{
+            background-color: tan;
+        }
+    </style>
+    <title>Canvas</title>
+</head>
+<body class="container">
+    <h1>Actividad</h1>
+    <h2>Canvas</h2>
+    <canvas id="mycanvas" width="500" height="500">
+
+    </canvas>
+</body>
+
+<script type="text/javascript">
+    
+    let canvas = document.getElementById('mycanvas')
+    let ctx = canvas.getContext('2d')
+    //console.log(ctx)
+
+    //lineas
+    ctx.moveTo(250, 50); //Coloca punto inicial
+    ctx.lineTo(400,200)  //mover el lapiz al punto
+    ctx.stroke() //Dibujar el contorno
+
+    //figura
+    ctx.moveTo(300,150)
+    ctx.lineTo(450,280)
+    ctx.lineTo(330,260)
+    ctx.lineTo(300,150)
+    ctx.fillStyle = 'rgb(253,142,251)'
+    //ctx.stroke()
+    ctx.fill()
+
+
+    
+    
+
+
+</script>
+</html>
