@@ -13,7 +13,7 @@
             background-color: whitesmoke;
         }
         canvas{
-            background-color: tan;
+            background-color: white;
         }
     </style>
     <title>Canvas</title>
@@ -32,22 +32,25 @@
     let ctx = canvas.getContext('2d')
     //console.log(ctx)
 
-    //lineas
-    ctx.moveTo(250, 50); //Coloca punto inicial
-    ctx.lineTo(400,200)  //mover el lapiz al punto
-    ctx.stroke() //Dibujar el contorno
-
-    //figura
-    ctx.moveTo(300,150)
-    ctx.lineTo(450,280)
-    ctx.lineTo(330,260)
-    ctx.lineTo(300,150)
-    ctx.fillStyle = 'rgb(253,142,251)'
-    //ctx.stroke()
-    ctx.fill()
-
+    //figuras
 
     
+    // let grd = ctx.createLinearGradient(0,0,200,0)
+    // grd.addColorStop(0, 'white')
+    // grd.addColorStop(1,'red')
+
+    // ctx.fillStyle=grd
+    // ctx.fillRect(60,100,130,80)
+    
+    let grd = ctx.createRadialGradient(105,50,5,100,50,130)
+    grd.addColorStop(0, 'red')
+    grd.addColorStop(1,'white')
+    
+    
+    ctx.fillStyle=grd
+    ctx.fillRect(10,10,200,80)
+        
+
     
 
 

@@ -13,7 +13,7 @@
             background-color: whitesmoke;
         }
         canvas{
-            background-color: tan;
+            background-color: white;
         }
     </style>
     <title>Canvas</title>
@@ -30,17 +30,23 @@
     
     let canvas = document.getElementById('mycanvas')
     let ctx = canvas.getContext('2d')
-    console.log(ctx)
+    //console.log(ctx)
 
+    //figuras
+
+    
+    let grd = ctx.createLinearGradient(0,0,200,0)
+    grd.addColorStop(0, 'yellow')
+    grd.addColorStop(1,'purple')
+    
+    
     ctx.fillStyle='rgb(200,0,0)'
-    ctx.fillRect(10,10,55,50)
+    ctx.fillRect(10,10,200,80)
         
-    ctx.fillStyle='rgba(0,0,200,0.5)'
-    ctx.fillRect(30,30,55,50)
+    ctx.fillStyle=grd
+    ctx.fillRect(60,100,130,80)
+    
 
-            
-    ctx.fillStyle='rgba(253,142,251,0.5)'
-    ctx.fillRect(50,50,55,50)
     
 
 

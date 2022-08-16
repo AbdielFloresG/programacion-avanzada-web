@@ -30,24 +30,17 @@
     
     let canvas = document.getElementById('mycanvas')
     let ctx = canvas.getContext('2d')
-    //console.log(ctx)
+    console.log(ctx)
 
-    //lineas
-    ctx.moveTo(250, 50); //Coloca punto inicial
-    ctx.lineTo(400,200)  //mover el lapiz al punto
-    ctx.stroke() //Dibujar el contorno
+    ctx.fillStyle='rgb(200,0,0)'
+    ctx.fillRect(10,10,55,50)
+        
+    ctx.fillStyle='rgba(0,0,200,0.5)'
+    ctx.fillRect(30,30,55,50)
 
-    //figura
-    ctx.moveTo(300,150)
-    ctx.lineTo(450,280)
-    ctx.lineTo(330,260)
-    ctx.lineTo(300,150)
-    ctx.fillStyle = 'rgb(253,142,251)'
-    //ctx.stroke()
-    ctx.fill()
-
-
-    
+            
+    ctx.fillStyle='rgba(253,142,251,0.5)'
+    ctx.fillRect(50,50,55,50)
     
 
 

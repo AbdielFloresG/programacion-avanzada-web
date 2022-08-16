@@ -13,7 +13,7 @@
             background-color: whitesmoke;
         }
         canvas{
-            background-color: tan;
+            background-color: white;
         }
     </style>
     <title>Canvas</title>
@@ -21,7 +21,9 @@
 <body class="container">
     <h1>Actividad</h1>
     <h2>Canvas</h2>
+    <img src="./guitar.jpeg"  alt="" id="imagen" style="display: none">
     <canvas id="mycanvas" width="500" height="500">
+    
 
     </canvas>
 </body>
@@ -32,24 +34,8 @@
     let ctx = canvas.getContext('2d')
     //console.log(ctx)
 
-    //lineas
-    ctx.moveTo(250, 50); //Coloca punto inicial
-    ctx.lineTo(400,200)  //mover el lapiz al punto
-    ctx.stroke() //Dibujar el contorno
-
-    //figura
-    ctx.moveTo(300,150)
-    ctx.lineTo(450,280)
-    ctx.lineTo(330,260)
-    ctx.lineTo(300,150)
-    ctx.fillStyle = 'rgb(253,142,251)'
-    //ctx.stroke()
-    ctx.fill()
-
-
-    
-    
-
-
+    var img = document.getElementById('imagen')
+    ctx.drawImage(img, 10,10)
+        
 </script>
 </html>
