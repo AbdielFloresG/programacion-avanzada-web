@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            margin: 20;
+            padding: 20;
+            box-sizing: border-box;
+            align-items: center;
+            background-color: whitesmoke;
+        }
+        canvas{
+            background-color: white;
+        }
+    </style>
+    <title>Canvas</title>
+</head>
+<body class="container">
+    <canvas id="mycanvas" width="500" height="500">
+
+    </canvas>
+</body>
+
+<script type="text/javascript">
+    
+    let canvas = document.getElementById('mycanvas')
+    let ctx = canvas.getContext('2d')
+
+    var figura = 'arc'
+    var pressed = false
+    //console.log(ctx)
+
+    //figuras
+
+    // ctx.fillStyle='rgb(200,0,0)'
+    // ctx.fillRect(10,10,55,50)
+        
+    // ctx.fillStyle='rgba(0,0,200,0.5)'
+    // ctx.fillRect(30,30,55,50)
+
+            
+    // ctx.fillStyle='rgba(253,142,251,0.5)'
+    // ctx.fillRect(50,50,55,50)
+    
+
+    // //Circulos
+    // ctx.beginPath();
+    // ctx.arc(200,50,25,0,2*Math.PI);
+    // ctx.strokeStyle = 'red'
+    // ctx.stroke();
+    
+    // const doClick = e => {
+    //     ctx.beginPath();
+    //     ctx.arc(e.offsetX,e.offsetY,50,0,2*Math.PI);
+    //     // ctx.strokeStyle = 'red'
+    //     // ctx.stroke();
+    //     ctx.fillStyle='rgba(0,200,0,0.5)'
+    //     ctx.fill()
+    //     console.log(e)
+    // }
+    // canvas.addEventListener('click', doClick(e))
+
+    // getRed = () =>{
+    //     let r = Math.floor(Math.random() * (255-0) + 1)
+    //     return r
+    // }
+    // getGreen = () =>{
+    //     let g = Math.floor(Math.random() * (255-0) + 1)
+    //     return g
+    // }
+    // const getBlue = () =>{
+    //     let b = Math.floor(Math.random() * (255-0) + 1)
+    //     return b
+    // }
+
+    const cambiarColor =() =>{
+        let r = Math.floor(Math.random() * (255-0) + 1)
+        let g = Math.floor(Math.random() * (255-0) + 1)
+        let b = Math.floor(Math.random() * (255-0) + 1)
+        ctx.fillStyle='rgba('+r+','+g+','+b+',0.5)'
+        ctx.fill()
+    }
+
+    let r =255
+    let g =255
+    let b =255
+    
+    canvas.addEventListener('click', e => {  
+        
+        if(figura=='arc'){
+            ctx.beginPath();
+            ctx.arc(e.offsetX,e.offsetY,50,0,2*Math.PI);
+            // ctx.strokeStyle = 'red'
+            // ctx.stroke();
+            ctx.fillStyle='rgba('+r+','+g+','+b+',0.5)'
+            ctx.fill()
+            ctx.stroke();
+        }else{
+            ctx.fillStyle='rgba('+r+','+g+','+b+',0.5)'
+            ctx.fillRect(e.offsetX,e.offsetY,50,50)
+        }
+       
+    })
+    canvas.addEventListener('mouseover', e => {         
+
+        // ctx.stroke();
+        r = Math.floor(Math.random() * (255-0) + 1)
+        g = Math.floor(Math.random() * (255-0) + 1)
+        b = Math.floor(Math.random() * (255-0) + 1)
+
+    })
+
+    canvas.addEventListener('mouseout',e => {
+        figura = (figura=='arc') ? 'rec' : 'arc'
+    })
+
+    canvas.addEventListener('mousemove', e => {
+        if(pressed){
+            ctx.fillStyle='rgba('+0+','+0+','+0+',0.5)'
+            ctx.fillRect(e.offsetX,e.offsetY,10,10)
+        }
+    })
+
+    canvas.addEventListener('mouseup', e =>{
+
+        pressed = false
+    })
+    canvas.addEventListener('mousedown', e => {
+        pressed = true
+    })
+
+
+
+
+
+
+</script>
+</html>
