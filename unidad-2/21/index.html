@@ -94,6 +94,7 @@
         canvas = document.getElementById('mycanvas')
         ctx = canvas.getContext('2d')
 
+
         paint()
     }
 
@@ -118,6 +119,12 @@
 
         ctx.fillStyle='rgb('+r+','+g+','+b+')'
         ctx.fillRect(mainX,mainY,50,50)
+
+
+        mainX+=5;
+        if (mainX===500){
+            mainX=0
+        }    
     }
     window.addEventListener('load',run,false)
 
