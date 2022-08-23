@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            margin: 20;
+            padding: 20;
+            box-sizing: border-box;
+            align-items: center;
+            background-color: whitesmoke;
+        }
+        canvas{
+            background-color: tan;
+        }
+    </style>
+    <title>Canvas</title>
+</head>
+<body class="container">
+    <img src="./Tyler-mugshot.jpeg"  alt="" id="imagen" style="display: none">
+    <canvas id="mycanvas" width="500" height="500">
+
+    </canvas>
+</body>
+
+<script type="text/javascript">
+
+
+    let canvas = document.getElementById('mycanvas')
+    let ctx = canvas.getContext('2d')
+
+    canvas.addEventListener('click', e => {  
+    
+        console.log(e.offsetX, e.offsetY)
+
+    })
+
+
+    //Nube
+    ctx.fillStyle='whitesmoke'
+    ctx.beginPath();
+    ctx.arc(110,70,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(140,60,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(160,70,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(170,90,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(160,110,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(120,110,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(90,90,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(120,90,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+
+
+    //Casa
+    ctx.fillStyle='powderblue'
+    ctx.fillRect(100,300,150,150)
+    //Puerta
+    ctx.fillStyle='black'
+    ctx.fillRect(160,400,30,50)
+    //Chapa
+    ctx.beginPath();
+    ctx.arc(185,426,3,0,2*Math.PI);
+    ctx.fillStyle = 'white'
+    ctx.fill();
+    //Puerta
+    ctx.strokeStyle='black'
+    ctx.strokeRect(120,330,20,20)
+    ctx.strokeRect(120,350,20,20)
+    ctx.strokeRect(140,330,20,20)
+    ctx.strokeRect(140,350,20,20)
+
+    ctx.strokeRect(190,330,20,20)
+    ctx.strokeRect(190,350,20,20)
+    ctx.strokeRect(210,330,20,20)
+    ctx.strokeRect(210,350,20,20)
+    
+
+    //Brazo Der
+    ctx.moveTo(100,300)
+    ctx.lineTo(250,300)
+    ctx.lineTo(175,250)
+    ctx.fillStyle = 'black'
+    ctx.fill()
+
+    //Tronco
+    ctx.fillStyle='brown'
+    ctx.fillRect(400,250,40,130)
+    //Ramas
+    ctx.fillStyle='green'
+    ctx.beginPath();
+    ctx.arc(390,240,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(420,250,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(450,240,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(465,220,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(450,200,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(420,180,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(405,190,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(410,200,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(390,180,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(380,210,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(424,224,25,0*Math.PI,2*Math.PI);
+    ctx.fill();
+ 
+ 
+    //Imagen
+    var img = document.getElementById('imagen')
+    ctx.drawImage(img, 215,130, 70,60,)
+
+    // ctx.strokeStyle = 'red'
+    // ctx.stroke();
+    // ctx.fillRect(200,50,55,50)
+
+</script>
+</html>

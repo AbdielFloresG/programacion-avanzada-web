@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            margin: 20;
+            padding: 20;
+            box-sizing: border-box;
+            align-items: center;
+            background-color: whitesmoke;
+        }
+        canvas{
+            background-color: white;
+        }
+    </style>
+    <title>Canvas</title>
+</head>
+<body class="container">
+    <img src="./Tyler-mugshot.jpeg"  alt="" id="imagen" style="display: none">
+    <canvas id="mycanvas" width="500" height="500">
+
+    </canvas>
+</body>
+
+<script type="text/javascript">
+
+
+    let canvas = document.getElementById('mycanvas')
+    let ctx = canvas.getContext('2d')
+
+    canvas.addEventListener('click', e => {  
+    
+        console.log(e.offsetX, e.offsetY)
+
+    })
+
+
+    //Short
+    ctx.moveTo(196,230)
+    ctx.lineTo(196,240)
+    ctx.lineTo(190,270)
+    ctx.lineTo(235,270)
+    ctx.lineTo(235,240)
+    ctx.lineTo(240,240)
+    ctx.lineTo(240,270)
+    ctx.lineTo(290,270)
+    ctx.lineTo(284,230)
+    ctx.lineTo(196,230)
+    ctx.fillStyle = 'powderblue'
+    ctx.fill()
+
+
+
+
+    //Cabeza
+    ctx.beginPath();
+    ctx.arc(240,70,40,0,2*Math.PI);
+    ctx.fillStyle='rgb(255,183,143)'
+    ctx.fill();
+
+    //Cabello
+    ctx.beginPath();
+    ctx.arc(240,70,40,1.2*Math.PI,1.8*Math.PI);
+    ctx.fillStyle='black'
+    ctx.fill();
+    //Ojo izquierdo
+    ctx.beginPath();
+    ctx.arc(227,65,6,0,2*Math.PI);
+    ctx.fillStyle='#000'
+    ctx.fill();
+
+    //Ojo derecho
+    ctx.beginPath();
+    ctx.arc(260,65,6,0,2*Math.PI);
+    ctx.fillStyle='#000'
+    ctx.fill();
+
+    //Manga Izq
+    ctx.moveTo(196,120)
+    ctx.lineTo(190,128)
+    ctx.lineTo(190,150)
+    ctx.lineTo(196,150)
+
+    ctx.fill()
+
+    //Manga Der
+
+    ctx.fill()
+    ctx.moveTo(285,120)
+    ctx.lineTo(290,128)
+    ctx.lineTo(290,150)
+    ctx.lineTo(285,150)
+    //Manga Der
+
+    ctx.fill()
+    ctx.moveTo(285,120)
+    ctx.lineTo(290,128)
+    ctx.lineTo(290,150)
+    ctx.lineTo(285,150)
+
+    //Boca
+    ctx.beginPath();
+    ctx.arc(242,85,5,0,1*Math.PI);
+    ctx.fillStyle='#000'
+    ctx.stroke();
+    ctx.fill();
+
+    //Cuerpo
+    ctx.fillStyle='#000'
+    ctx.fillRect(195,115,90,110)
+
+    //Cuello
+    ctx.fillStyle='rgb(255,183,143)'
+    ctx.fillRect(228,95,25,20)
+
+    //Brazo Izq
+    ctx.moveTo(190,130)
+    ctx.lineTo(139,185)
+    ctx.lineTo(139,205)
+    ctx.lineTo(190,150)
+    ctx.fill()
+
+
+    //Brazo Der
+    ctx.moveTo(290,130)
+    ctx.lineTo(340,185)
+    ctx.lineTo(340,205)
+    ctx.lineTo(290,150)
+    ctx.fill()
+
+    //Piernas
+    ctx.fillStyle='powderblue'
+    ctx.fillRect(195,225,90,35)
+
+
+
+    //Imagen
+    var img = document.getElementById('imagen')
+    ctx.drawImage(img, 215,130, 50,60,)
+
+    //Pierna Izquierda
+    ctx.moveTo(195,270)
+    ctx.lineTo(185,330)
+    ctx.lineTo(215,330)
+    ctx.lineTo(225,270)
+    ctx.lineTo(195,270)
+    ctx.fillStyle='rgb(255,183,143)'
+    ctx.fill();
+
+    //Pierna Izquierda
+    ctx.moveTo(250,270)
+    ctx.lineTo(260,330)
+    ctx.lineTo(295,330)
+    ctx.lineTo(280,270)
+    ctx.lineTo(250,270)
+    ctx.fillStyle='rgb(255,183,143)'
+    ctx.fill();
+
+    //Zapato Izq
+    ctx.fillStyle='black'
+    ctx.fillRect(175,330,40,20)
+    ctx.beginPath();
+    ctx.arc(175,340,10,0,2*Math.PI);
+    ctx.fillStyle='#000'
+    ctx.fill();
+
+    //Zapato Der
+    ctx.fillStyle='black'
+    ctx.fillRect(255,330,40,20)
+    ctx.beginPath();
+    ctx.arc(255,340,10,0,2*Math.PI);
+    ctx.fillStyle='#000'
+    ctx.fill();
+
+
+        
+    // ctx.strokeStyle = 'red'
+    // ctx.stroke();
+    // ctx.fillRect(200,50,55,50)
+
+
+
+</script>
+</html>
