@@ -45,10 +45,15 @@
 
     var score=0
 
+    var speed = 5
+
     var player1 = null
-    var player1 = null
+    var player2 = null
+    var pared = []
 
     var direccion = 'R'
+
+    var pause = false
 
     const cambiarColor =() =>{
         r = Math.floor(Math.random() * (255-0) + 1)
@@ -93,14 +98,26 @@
         if(e.keyCode == 68 || e.keyCode == 39){
             direccion = 'R'
         }
+        if(e.keyCode == 32){
+            pause = (!pause)
+        }
     })
 
     function run(){
         canvas = document.getElementById('mycanvas')
         ctx = canvas.getContext('2d')
+        ctx.font = '20px serif';
+
 
         player1 = new Cuadro(mainX,mainY,50,50,r,g,b)
-        player2 = new Cuadro((Math.random() * (500-0) + 1),Math.floor(Math.random() * (500-0) + 1),50,50,r,g,b)
+        //player2 = new Cuadro((Math.random() * (460-0) + 1),Math.floor(Math.random() * (460-0) + 1),40,40,r,g,b)
+
+        pared[0] = new Cuadro(70,170,30,150,r,g,b)
+        pared[1] = new Cuadro(430,170,30,150,r,g,b)
+        pared[2] = new Cuadro(170,70,150,30,r,g,b)
+        pared[3] = new Cuadro(170,430,150,30,r,g,b)
+
+        console.log(pared)
 
         paint()
     }
@@ -130,6 +147,7 @@
             ctx.strokeRect(this.x,this.y,this.w,this.h)
         }
 
+
         this.intersects = function (target) { 
             if(this.x < target.x + target.w &&
             this.x + this.w > target.x && 
@@ -153,13 +171,27 @@
         // ctx.drawImage(img, 10,10, 200,240,)
 
         player1.pintar(ctx)
-        player2.pintar(ctx)
+        //player2.pintar(ctx)
 
+        pared.map((item)=>{
+            item.pintar(ctx)
+        })
+
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'Black'
         ctx.fillText("score: "+score , 20,40)
 
 
+        if (!pause){
+            update()
+        }else{
 
-        update()
+  
+            ctx.fillStyle = 'rgba(200,200,200,0.5)'
+            ctx.fillRect(0,0,500,500)
+            ctx.fillStyle = 'white'
+            ctx.fillText("Pausa", 230,230)
+        }
 
 
         // ctx.fillStyle='rgb('+r+','+g+','+b+')'
@@ -173,28 +205,51 @@
 
         if (direccion==='U'){
             if (player1.y>0){
-                player1.y-=1; 
+                player1.y-=speed; 
             }  
         }else if (direccion==='D'){
             if (player1.y<450){
-                player1.y+=1; 
+                player1.y+=speed; 
             }  
         }else if (direccion=== 'L'){
             if (player1.x>0){
-                player1.x-=1; 
+                player1.x-=speed; 
             }  
         }else if (direccion==='R'){
             if (player1.x<450){
-                player1.x+=1; 
+                player1.x+=speed; 
             }  
         }
-        if(player1.intersects(player2)){
-            player2.x=(Math.random() * (500-0) + 1)
-            player2.y=(Math.random() * (500-0) + 1)
-            score+=5
+        // if(player1.intersects(player2)){
+        //     player2.x=(Math.random() * (500-0) + 1)
+        //     player2.y=(Math.random() * (500-0) + 1)
+        //     score+=5
+        //     speed+=1
 
-            console.log("Se tocaron")
-        }
+        //     console.log("Se tocaron")
+        // }
+
+        pared.map(item =>{
+            if(player1.intersects(item)){   
+                if (direccion == 'U' ) {
+                    player1.y += speed;
+                }
+                //abajo
+                if (direccion== 'D') {
+                    player1.y-= speed;
+                }
+                //izquierda
+                if (direccion =='L') {
+                    player1.x += speed;
+                }
+                //derecha
+                if (direccion =='R') {
+                    player1.x -= speed;
+                }
+            }
+        })
+
+
     }
     window.addEventListener('load',run,false)
 
