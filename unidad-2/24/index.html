@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            margin: 20;
+            padding: 20;
+            box-sizing: border-box;
+            align-items: center;
+            background-color: whitesmoke;
+        }
+        canvas{
+            background-color: white;
+        }
+    </style>
+    <title>Canvas</title>
+</head>
+<body class="container">
+    <img src="../17/Tyler-mugshot.jpeg"  alt="" id="imagen" style="display: none">
+    <canvas id="mycanvas" width="500" height="500">
+
+    </canvas>
+</body>
+
+<script type="text/javascript">
+
+    mainX = 0
+    mainY = 0
+    
+    // var img = document.getElementById('imagen')
+    // ctx.drawImage(img, 10,10, 200,240,)
+
+    var canvas = null
+    var ctx = null
+
+    var figura = 'arc'
+    var pressed = false
+
+    var r =0
+    var g =0
+    var b =0
+
+    var score=0
+    var speed = 5
+
+    var player1 = null
+    var player2 = null
+    var pared = []
+
+    var direccion = 'R'
+    var pause = false
+
+    var car = new Image()
+    var apple = new Image()
+
+    var sound = new Audio()
+
+
+    const cambiarColor =() =>{
+        r = Math.floor(Math.random() * (255-0) + 1)
+        g = Math.floor(Math.random() * (255-0) + 1)
+        b = Math.floor(Math.random() * (255-0) + 1)
+        ctx.fillStyle='rgba('+r+','+g+','+b+',0.5)'
+        ctx.fill()
+    }
+
+    
+    // canvas.addEventListener('click', e => {  
+        
+    //     if(figura=='arc'){
+    //         ctx.beginPath();
+    //         ctx.arc(e.offsetX,e.offsetY,50,0,2*Math.PI);
+    //         // ctx.strokeStyle = 'red'
+    //         // ctx.stroke();
+    //         ctx.fillStyle='rgba('+r+','+g+','+b+',0.5)'
+    //         ctx.fill()
+    //         ctx.stroke();
+    //     }else{
+    //         ctx.fillStyle='rgba('+r+','+g+','+b+',0.5)'
+    //         ctx.fillRect(e.offsetX,e.offsetY,50,50)
+    //     }
+       
+    // })
+
+    document.addEventListener('keydown', e => {
+        //Arriba
+        if(e.keyCode == 87 || e.keyCode == 38){
+            direccion = 'U'
+        }
+        //Abajo
+        if(e.keyCode == 83 || e.keyCode == 40){
+            direccion = 'D'
+        }
+        //Izq
+        if(e.keyCode == 65 || e.keyCode == 37){
+            direccion = 'L'
+        }
+        //Derecha
+        if(e.keyCode == 68 || e.keyCode == 39){
+            direccion = 'R'
+        }
+        if(e.keyCode == 32){
+            pause = (!pause)
+        }
+    })
+
+    function run(){
+        canvas = document.getElementById('mycanvas')
+        ctx = canvas.getContext('2d')
+        ctx.font = '20px serif';
+
+
+        player1 = new Cuadro(mainX,mainY,50,50,r,g,b)
+        player2 = new Cuadro((Math.random() * (470-0) + 1),Math.floor(Math.random() * (470-0) + 1),30,30,r,g,b)
+
+        pared[0] = new Cuadro(70,170,30,150,r,g,b)
+        pared[1] = new Cuadro(400,170,30,150,r,g,b)
+        pared[2] = new Cuadro(170,70,150,30,r,g,b)
+        pared[3] = new Cuadro(170,400,150,30,r,g,b)
+
+        car.src = 'car.png'
+        apple.src = 'apple.png'
+        sound.src = './siiiu.mp3'
+
+        paint()
+
+
+    }
+
+    // function drawRotated(degrees){
+    //     ctx.clearRect(0,0,canvas.width,canvas.height);
+    //     ctx.save();
+    //     ctx.translate(canvas.width/2,canvas.height/2);
+    //     ctx.rotate(degrees*Math.PI/180);
+    //     ctx.drawImage(image,-image.width/2,-image.width/2);
+    //     ctx.restore();
+    // }
+    window.requestAnimationFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 17);
+            };  
+    }());
+
+    function Cuadro(x,y,w,h){
+        this.x = x
+        this.y = y
+        this.w = w
+        this.h = h
+        let r = Math.floor(Math.random() * (255-0) + 1)
+        let g = Math.floor(Math.random() * (255-0) + 1)
+        let b = Math.floor(Math.random() * (255-0) + 1)
+        
+        this.pintar = function(ctx){
+            ctx.fillStyle= `rgb(${r},${g},${b})`
+            //ctx.fillStyle = 'black'
+            ctx.fillRect(this.x,this.y,this.w,this.h)
+            ctx.strokeRect(this.x,this.y,this.w,this.h)
+        }
+
+
+        this.intersects = function (target) { 
+            if(this.x < target.x + target.w &&
+            this.x + this.w > target.x && 
+            this.y < target.y + target.h && 
+            this.y + this.h > target.y){
+                return true;	
+            }
+        };
+    }
+
+
+    function paint(){
+        window.requestAnimationFrame(paint)
+        cambiarColor()
+
+        //ctx.fillStyle='rgb('+255+','+255+','+255+')'
+        ctx.fillStyle = 'white'
+        ctx.fillRect(0,0,500,500)
+
+        // var img = document.getElementById('imagen')
+        
+        ctx.drawImage(car, player1.x,player1.y, 50,50,)
+        ctx.drawImage(apple, player2.x,player2.y, 30,30,)
+
+
+        //player1.pintar(ctx)
+        //player2.pintar(ctx)
+
+        pared.map((item)=>{
+            item.pintar(ctx)
+        })
+
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'Black'
+        ctx.fillText("score: "+score , 20,40)
+
+
+        if (!pause){
+            update()
+        }else{
+            ctx.fillStyle = 'rgba(200,200,200,0.5)'
+            ctx.fillRect(0,0,500,500)
+            ctx.fillStyle = 'white'
+            ctx.fillText("Pausa", 230,230)
+        }
+
+
+        // ctx.fillStyle='rgb('+r+','+g+','+b+')'
+        // ctx.fillRect(mainX,mainY,50,50)
+
+
+  
+    }
+
+    function update () {
+
+        if (direccion==='U'){
+            //car.rotate(1)
+            if (player1.y>0){
+
+                player1.y-=speed; 
+            }  
+        }else if (direccion==='D'){
+            if (player1.y<450){
+                player1.y+=speed; 
+            }  
+        }else if (direccion=== 'L'){
+            if (player1.x>0){
+                player1.x-=speed; 
+            }  
+        }else if (direccion==='R'){
+            if (player1.x<450){
+                player1.x+=speed; 
+            }  
+        }
+        if(player1.intersects(player2)){
+            player2.x=(Math.random() * (500-0) + 1)
+            player2.y=(Math.random() * (500-0) + 1)
+            score+=5
+            sound.play()
+
+            //speed+=1
+
+            console.log("Se tocaron")
+        }
+
+        pared.map(item =>{
+            if(player1.intersects(item)){   
+                if (direccion == 'U' ) {
+                    player1.y += speed;
+                }
+                //abajo
+                if (direccion== 'D') {
+                    player1.y-= speed;
+                }
+                //izquierda
+                if (direccion =='L') {
+                    player1.x += speed;
+                }
+                //derecha
+                if (direccion =='R') {
+                    player1.x -= speed;
+                }
+            }
+        })
+
+
+    }
+    window.addEventListener('load',run,false)
+
+
+
+</script>
+</html>

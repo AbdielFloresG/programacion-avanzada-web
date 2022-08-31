@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+
+
+
+        <fieldset>
+            <label for="">
+                Ingrese su edad
+            </label>
+            <input type="" v-model="age" name="">
+
+            <h1 v-if="age>=18">
+                Pasele a pistear
+            </h1>
+            <h1 v-else>
+                Fuga pa la casa
+            </h1>
+        </fieldset>
+
+
+        <h1>
+            {{name}}
+        </h1>
+        <p>
+            {{lastname}}
+        </p>
+        <form action="">
+            <fieldset>
+                <legend>Datos personales</legend>
+                <input type="text" name="" v-model="name">
+                <input type="text" name="" v-model="lastname">
+ 
+                <button type="button" @click="saludar">
+                    Saludar
+                </button>
+
+            </fieldset>
+        </form>
+        <form action="">
+            <fieldset>
+                <legend>Calculadora</legend>
+                <input type="text" name="" v-model="numero1">
+                <input type="text" name="" v-model="numero2">
+                
+                <h1>
+                    {{result}}
+                </h1>
+ 
+                <button  type="button"  @click="sumar">
+                    Sumar
+                </button>
+
+                
+            </fieldset>
+        </form>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script type="text/javascript">
+        const { createApp } = Vue
+    
+        const app = createApp({
+            data(){
+                return{
+                    name: 'Abdiel',
+                    lastname: 'Flores',
+                    numero1: 0,
+                    numero2: 0,
+                    result: 0,
+                    age: 0,
+                    palomilla:[
+                        {name: 'Abdiel', role: 'Movil'},
+                        {name: 'Iran', role: 'Frontend'},
+                        {name: 'Angel', role: 'Backend'},
+                        {name: 'Kimex', role: 'Frontend'},
+                        {name: 'Isaac', role: 'Nada'},
+
+                    ],
+                    a_name: '',
+                    role: '',
+
+                }
+            },
+            methods:{
+                saludar(){
+                    alert("Hola: "+this.name+" "+this.lastname)
+                },
+                sumar(){
+                    this.result = (parseInt(this.numero1)+parseInt(this.numero2) )
+                },
+                addPalomilla(){
+                    let tmp = {name:this.a_name, role:this.role}
+                    this.palomilla.push(tmp)
+                }
+            }
+        }).mount('#container')
+    
+    </script>
+
+</body>
+</html>
