@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <form>
+            <fieldset>
+                <legend>
+                    Acceso al panel
+                </legend>
+                <label for="">
+                    Correo Electronico
+                </label>
+                <input type="email" v-model="email" name="">
+                <label for="">
+                    Password
+                </label>
+                <input type="password" v-model="password" name="">
+
+                <button type="button" @click="login">
+                    acceder
+                </button>
+
+            </fieldset>
+        </form>
+
+        <p>
+            {{users}}
+        </p>
+
+    </div>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script type="text/javascript">
+        
+        const { createApp } = Vue
+
+
+
+        const app = createApp({
+            data(){
+                return{
+                    users: null,
+                    email: '',
+                    password: '',
+
+                }
+            },
+            methods:{
+                login(e){
+                    let login = false
+                    e.preventDefault()
+                    //console.log(this.users)
+                    this.users.map((item,index)=>{
+                        //console.log(item)
+                        if(this.email.toLowerCase() === item.email.toLowerCase()){
+                            if(this.password === item.password){
+                                login = true
+                                
+                            }
+                        }
+                    })
+                    if(login){
+                        alert("Ingreso")
+                    }else{
+                        alert("No ingreso")
+                    }
+                }
+            },
+            mounted(){
+                const fetchData = async () =>{
+                    try {
+                        const resp = await fetch('../users.json')
+                        const result = await resp.json()
+                        this.users =await result
+                        return await result
+
+                    } catch (error) {
+                        console.warn(error)
+                    }
+                }
+                fetchData()
+
+            }
+        }).mount('#container')
+    
+    </script>
+
+</body>
+</html>
