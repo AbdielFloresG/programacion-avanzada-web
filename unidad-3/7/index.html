@@ -10,23 +10,23 @@
 </head>
 <body class="vh-100"> 
 
-    <div id="app" class="container-fluid h-100 py-5 justify-content-center align-items-center ">
-        <div class="container-sm m-auto h-75 d-flex justify-content-center align-items-center ">
-            <form class="justify-content-center align-items-center">
+    <div id="app" class="container-fluid h-100 py-5 justify-content-center align-items-center">
+        <div class="container-sm m-auto d-flex justify-content-center col-3 bg-primary rounded-2">
+            <form id="loginForm" action="./usuarios.html" method="POST" @submit.prevent="login">
                 <fieldset>
-                    <legend>
+                    <legend class="my-5">
                         Acceso al panel
                     </legend>
                     <label for="">
                         Correo Electronico
                     </label>
-                    <input type="email" v-model="email" name="">
+                    <input type="text" v-model="email" name="" class="w-100 mx-auto my-2 p-1">
                     <label for="">
                         Password
                     </label>
-                    <input type="password" v-model="password" name="">
+                    <input type="password" v-model="password" name="" class="w-100 mx-auto my-2 p-1">
     
-                    <button type="button" @click="login">
+                    <button type="submit" class="btn btn-danger w-100 my-5 p-2">
                         Acceder
                     </button>
     
@@ -54,27 +54,26 @@
                     users: null,
                     email: '',
                     password: '',
-
+                    user: null
                 }
             },
             methods:{
-                login(e){
+                login(){
                     let login = false
-                    e.preventDefault()
                     //console.log(this.users)
                     this.users.map((item,index)=>{
                         //console.log(item)
                         if(this.email.toLowerCase() === item.email.toLowerCase()){
                             if(this.password === item.password){
+                                document.getElementById('loginForm').submit();
+                                sessionStorage.setItem("sessionUser", JSON.stringify(item));
                                 login = true
                                 
                             }
                         }
                     })
-                    if(login){
-                        alert("Ingreso")
-                    }else{
-                        alert("No ingreso")
+                    if(!login){
+                        alert("No existe el usuario bro")
                     }
                 }
             },
@@ -91,6 +90,8 @@
                     }
                 }
                 fetchData()
+       
+                
 
             }
         }).mount('#app')
