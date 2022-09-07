@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body class="vh-100"> 
+
+    
+
+    <div id="app" class="container-fluid h-100 py-5 justify-content-center align-items-center" v-cloak>
+
+
+
+        <div class="container-sm m-auto d-flex justify-content-center bg-primary rounded-2 flex-column p-5" v-if="table">
+
+            <div class="row my-2">
+                <h1 class="text-light">Usuarios</h1>
+            </div>
+            <div class="row my-2">
+                <button type="button" class="btn btn-success w-25 p-2 fs-4" @click="showAdd">
+                    Agregar
+                </button>
+            </div>
+            <div class="row my-2 ">
+                <table class="table fs-5 ">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Usuario</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-dark text-light">
+                        <tr v-for="user in users" :key="user.id">
+                            <td>{{user.name}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                            <td>
+                                <button type="button" @click="editUser(user.id)" class="btn btn-warning  p-2 mx-2 fs-4">
+                                    Editar
+                                </button>
+                                <button type="button"  @click="deleteUser(user.id)" class="btn btn-danger p-2 mx-2 fs-4">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <div class="container-sm m-auto d-flex justify-content-center bg-primary rounded-2 flex-column p-5" v-if="addUser">
+
+            <div class="row my-2">
+                <h1 class="text-light">Usuarios</h1>
+            </div>
+            <form>
+                <fieldset>
+                    <label for="">
+                        Nombre
+                    </label>
+                    <input type="text" v-model="name" name="" class="w-100 mx-auto my-2 p-1">
+                    <label for="">
+                        Usuario
+                    </label>
+                    <input type="text" v-model="username" name="" class="w-100 mx-auto my-2 p-1">
+                    <label for="">
+                        Correo Electronico
+                    </label>
+                    <input type="text" v-model="email" name="" class="w-100 mx-auto my-2 p-1">
+                    <!-- <label for="">
+                        Password
+                    </label>
+                    <input type="password" v-model="password" name="" class="w-100 mx-auto my-2 p-1"> -->
+
+                </fieldset>
+            </form>
+
+            <button type="button" class="btn btn-warning my-2" @click="cancelAdd">Cancel</button>
+            <button type="button" @click="submitHandle" class="btn btn-success my-2">Guardar usuario</button>
+
+        </div>
+
+
+        <div class="container-sm m-auto d-flex justify-content-center bg-primary rounded-2 flex-column p-5" v-if="editUserScreen">
+            <div class="row my-2">
+                <h1 class="text-light">Editar Usuario</h1>
+            </div>
+            <form>
+                <fieldset>
+                    <label for="">
+                        Nombre
+                    </label>
+                    <input type="text" v-model="userData.name" name="" class="w-100 mx-auto my-2 p-1">
+                    <label for="">
+                        Usuario
+                    </label>
+                    <input type="text" v-model="userData.username" name="" class="w-100 mx-auto my-2 p-1">
+                    <label for="">
+                        Correo Electronico
+                    </label>
+                    <input type="text" v-model="userData.email" name="" class="w-100 mx-auto my-2 p-1">
+                    <h4>Address</h4>
+                    <label for="">
+                        Street
+                    </label>
+                    <input type="text" v-model="userData.address.street" name="" class="w-100 mx-auto my-2 p-1">
+                    <label for="">
+                        City
+                    </label>
+                    <input type="text" v-model="userData.address.city" name="" class="w-100 mx-auto my-2 p-1">
+                    <label for="">
+                        ZipCode
+                    </label>
+                    <input type="text" v-model="userData.address.zipcode" name="" class="w-100 mx-auto my-2 p-1">
+
+                    <!-- <label for="">
+                        Password
+                    </label>
+                    <input type="password" v-model="password" name="" class="w-100 mx-auto my-2 p-1"> -->
+
+                </fieldset>
+            </form>
+
+            <button type="button" class="btn btn-warning my-2" @click="cancelEdit">Cancelar</button>
+            <button type="button" @click="submitHandle" class="btn btn-success my-2">Actualizar</button>
+
+        </div>
+
+
+    </div>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script type="text/javascript">
+        
+        const { createApp } = Vue
+
+        const app = createApp({
+            data(){
+                return{
+                    sessionUser: JSON.parse(sessionStorage.getItem("sessionUser")),
+                    users: [],
+                    name: '',
+                    username: '',
+                    email: '',
+                    address:{
+                            street: '',
+                            city: '',
+                            zipcode: '',
+                    },
+                    company:{
+                        name: ''
+                    },
+                    eliminados: [],
+                    addUser : false,
+                    editUserScreen : false,
+                    table : true,
+
+                    userData: {
+                        name: '',
+                        username: '',
+                        email: '',
+                        address:{
+                            street: '',
+                            city: '',
+                            zipcode: '',
+                        },
+                        phone:'',
+                        company:{
+                            name: ''
+                        }
+                    }
+                }
+            },
+            methods:{
+                submitHandle(){
+                    console.log("Entro a la función")
+                    const name = this.name
+                    const username = this.username
+                    const email = this.email
+                    const address = this.address
+                    const company = this.company
+
+                    
+
+    
+                    
+                    const userObj = {id: this.users.length+1, name: name, username: username, email: email,address: address,company: company}
+                    
+                    //console.log(userObj)
+                    //this.users.append(j)
+                    this.users.push(userObj)
+                    this.addUser=false
+                    this.editUserScreen=false
+                    this.table=true
+                },
+                deleteUser(id){
+
+                    Swal.fire({
+                        title: 'Estás seguro?',
+                        text: "No es posible revertir esta acción!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor:'#3085d6' ,
+                        confirmButtonText: 'Si eliminalo'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.users = this.users.filter(user => user.id !== id)
+                            Swal.fire(
+                            'Eliminado!',
+                            'El usuario ha sido eliminado.',
+                            'success'
+                            )
+                        }
+                    })
+                },
+                showAdd(){
+                    this.addUser=true
+                    this.table=false
+                },
+                cancelAdd(){
+                    this.addUser=false
+                    this.table=true
+                },
+                editUser(id){
+                    this.editUserScreen=true
+                    this.table=false
+
+                    this.userData = this.users[id-1]
+
+                    //console.log(this.userData)
+
+                },
+                cancelEdit(){
+                    this.editUserScreen=false
+                    this.table=true
+                },
+
+            },
+            mounted(){
+                const fetchData = async () =>{
+                    try {
+                        const resp = await fetch('../users.json')
+                        const result = await resp.json()
+                        this.users =await result
+                        return await result
+
+                    } catch (error) {
+                        console.warn(error)
+                    }
+                }
+                fetchData()
+                
+                
+                setTimeout(()=>{
+                    alert(`Bienvenido ${this.sessionUser.name}`)
+                },1000)
+                
+        
+
+            }
+        }).mount('#app')
+    
+    </script>
+
+</body>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</html>
