@@ -8,6 +8,14 @@
 </head>
 <body class="h-100">
 
+    <?php 
+            include "../app/ProductsController.php";
+            session_start();
+            $token = $_SESSION["token"];
+            $productController = new ProductsController();
+            $products = $productController->getProducts($token);
+    ?>
+
     <?php include "../layout/navbar.template.php"; ?>
 
 
@@ -32,6 +40,43 @@
                     </div>
                     <div class="row">
 
+
+                    <?php foreach($products as $product): ?>
+                            <div class="col-md-3 col-sm-10 p-2">
+                                <div class="card" >
+                                    <img src="<?php echo $product["cover"]?>" class="card-img-top" alt="...">
+                                    <div class="card-body row">
+                                        <h5 class="card-title"><?php echo $product['name']?></h5>
+                                        <p class="card-text"><?php echo $product['description']?></p>
+                                        <div class="row my-1 mx-auto justify-content-around">
+                                            <div class="col-5 px-0">
+                                  
+                                                <button class="btn btn-warning w-100 float-end" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                                    Editar
+                                                </button>
+
+                                            </div>
+                                            <div class="col-5 px-0">
+
+                                                <button class="btn btn-danger w-100 float-end" onclick="remove(this)">
+                                                    Eliminar
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="row my-1 mx-auto">
+                                            <div class="col-12 p-0">
+                                        
+                                                <a href="./detalles.php" class="btn btn-primary w-100 py-3 mx-0 float-end">
+                                                    Detalles
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach;?>
+<!-- 
                         <?php for($i=0; $i<12; $i++ ): ?>
                             <div class="col-md-3 col-sm-10 p-2">
                                 <div class="card" >
@@ -66,7 +111,10 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php endfor;?>
+                        <?php endfor;?> -->
+
+
+
                     </div> 
                </div>
 
