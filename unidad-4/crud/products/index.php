@@ -20,6 +20,7 @@
 <head>
 
     <?php include '../layout/head.template.php'; ?>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 </head>
@@ -44,7 +45,7 @@
                             <p class="fs-4">Products</p>
                         </div>
                         <div class="col">
-                            <button class="btn btn-info float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button onclick="addProduct()" class="btn btn-info float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Añadir producto
                             </button>
                         </div>
@@ -61,13 +62,13 @@
                                         <p class="card-text"><?php echo $product['description']?></p>
                                         <div class="row d-flex flex-row my-1 mx-auto justify-content-around">
                                             <div class="col-5 px-0">
-                                                <button class="btn btn-warning w-100 float-end" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                                <button data-product='<?php echo json_encode($product)?>' onclick="editProduct(this)" class="btn btn-warning w-100 float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     Editar
                                                 </button>
                                             </div>
                                             <div class="col-5 px-0">
 
-                                                <button class="btn btn-danger w-100 float-end" onclick="remove(this)">
+                                                <button class="btn btn-danger w-100 float-end" onclick="remove(<?php echo $product['id']?>)">
                                                     Eliminar
                                                 </button>
 
@@ -102,38 +103,43 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="modalTitle"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form action="../app/ProductsController.php" method="POST" enctype="multipart/form-data">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">@</span>
-                                    <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" id='name' name="name" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1">
     
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">@</span>
-                                    <input type="text" name="slug" class="form-control" placeholder="Slug" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" id='slug' name="slug" class="form-control" placeholder="Slug" aria-label="Username" aria-describedby="basic-addon1">
     
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">@</span>
-                                    <input type="text" name="description" class="form-control" placeholder="Description" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" id='description' name="description" class="form-control" placeholder="Description" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">@</span>
-                                    <input type="text" name="features" class="form-control" placeholder="Features" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" id='features' name="features" class="form-control" placeholder="Features" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-                                <div class="form-group">
-                                    <label for="brand_id" class="form-label">Brand</label>
+                                <div class="input-group mb-3">
                                     <select class='form-control' name="brand_id" id="brand_id">
-                                    <option disabled selected value="">Seleccione un brand</option>
-                                    <?php foreach($brands as $brand): ?>
-                                        <option value="<?= $brand->id?>"><?= $brand->name ?></option>
-                                    <?php endforeach;?>
+                                        <option disabled selected value=  "" >Seleccione brand</option>
+                                        <?php foreach($brands as $brand): ?>
+                                            <option value="<?php echo $brand->id?>" >  <?php echo $brand->name ?>  </option>
+                                            <?php endforeach;?>
                                     </select>
                                 </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">@</span>
+                                    <input type="text" id='id' name="id" class="form-control" placeholder="id" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+
                                 <div class="form-group">
                                     <label for="imagen" class="form-label">img</label>
                                     <input name="imagen" type="file" class="form-control" id="imagen">
@@ -142,30 +148,8 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
-                                <input type="hidden" name="action" value="create">
+                                <input id="hidden" type="hidden" name="action" value="create">
                             </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <!-- Modal Editar -->
-            <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -181,7 +165,7 @@
 
 
 <script>
-    function remove(target){
+    function remove(id){
         Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -191,14 +175,49 @@
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-            )
+            if (result.isConfirmed) {
+
+            var bodyFormData = new FormData()
+            bodyFormData.append('id',id)
+            bodyFormData.append('action','delete')
+
+            axios.post('../app/ProductsController.php',bodyFormData)
+            .then(function (response) {
+                if(response.status === 200){
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    ) 
+                    window.location.reload()
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }
         })
+    }
+
+    addProduct = () => {
+        document.getElementById('hidden').value = "create"
+        document.getElementById('modalTitle').innerText="Agregar producto"
+    }
+    editProduct = target => {
+        document.getElementById('hidden').value = "edit"
+        document.getElementById('modalTitle').innerText="Editar producto"
+
+        const data = JSON.parse(target.getAttribute('data-product'))
+
+        document.getElementById('name').value = data.name
+        document.getElementById('slug').value = data.slug
+        document.getElementById('description').value = data.description
+        document.getElementById('features').value = data.features
+        document.getElementById('brand_id').value = data.brand_id
+        document.getElementById('id').value = data.id
+
+
+        console.log(data)
     }
 
 
