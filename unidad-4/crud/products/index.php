@@ -44,18 +44,16 @@
 
                     <?php foreach($products as $product): ?>
                             <div class="col-md-3 col-sm-10 p-2">
-                                <div class="card" >
+                                <div class="card" style="height: 37rem">
                                     <img src="<?php echo $product["cover"]?>" class="card-img-top" alt="...">
                                     <div class="card-body row">
                                         <h5 class="card-title"><?php echo $product['name']?></h5>
                                         <p class="card-text"><?php echo $product['description']?></p>
-                                        <div class="row my-1 mx-auto justify-content-around">
+                                        <div class="row d-flex flex-row my-1 mx-auto justify-content-around">
                                             <div class="col-5 px-0">
-                                  
                                                 <button class="btn btn-warning w-100 float-end" data-bs-toggle="modal" data-bs-target="#modalEditar">
                                                     Editar
                                                 </button>
-
                                             </div>
                                             <div class="col-5 px-0">
 
@@ -77,42 +75,6 @@
                                 </div>
                             </div>
                         <?php endforeach;?>
-<!-- 
-                        <?php for($i=0; $i<12; $i++ ): ?>
-                            <div class="col-md-3 col-sm-10 p-2">
-                                <div class="card" >
-                                    <img src="../../../unidad-2/19/Tyler-mugshot.jpeg" class="card-img-top" alt="...">
-                                    <div class="card-body row">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <div class="row my-1 mx-auto justify-content-around">
-                                            <div class="col-5 px-0">
-                                  
-                                                <button class="btn btn-warning w-100 float-end" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                    Editar
-                                                </button>
-
-                                            </div>
-                                            <div class="col-5 px-0">
-
-                                                <button class="btn btn-danger w-100 float-end" onclick="remove(this)">
-                                                    Eliminar
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                        <div class="row my-1 mx-auto">
-                                            <div class="col-12 p-0">
-                                        
-                                                <a href="./detalles.php" class="btn btn-primary w-100 py-3 mx-0 float-end">
-                                                    Detalles
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endfor;?> -->
 
 
 
@@ -134,7 +96,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="../app/ProductsController.php" method="POST">
+                            <form action="../app/ProductsController.php" method="POST" enctype="multipart/form-data">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">@</span>
                                     <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1">
@@ -157,7 +119,10 @@
                                     <span class="input-group-text" id="basic-addon1">@</span>
                                     <input type="text" name="brand_id" class="form-control" placeholder="Brand_id" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-    
+                                <div class="form-group">
+                                    <label for="imagen" class="form-label">img</label>
+                                    <input name="imagen" type="file" class="form-control" id="imagen">
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>

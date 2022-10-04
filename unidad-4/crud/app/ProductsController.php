@@ -9,9 +9,11 @@
                 $features = strip_tags($_POST['features']);
                 $brand_id = strip_tags($_POST['brand_id']);
 
+                $img = $_FILES["imagen"]["tmp_name"];
+
                 $productController = new ProductsController();
 
-                $productController->createProducts($name,$slug,$description,$features,$brand_id);
+                $productController->createProducts($name,$slug,$description,$features,$brand_id,$img);
 
             break;
         }
@@ -47,7 +49,12 @@
         }
 
 
-        public function createProducts($name,$slug,$description,$features,$brand_id){
+        public function createProducts($name,$slug,$description,$features,$brand_id,$img){
+
+            // if (isset($_FILES['imagen'])) {
+            //     $img = $_FILES['imagen']['tmp_name'];
+            //     $picture = file_get_contents($img);
+            // }
 
             $curl = curl_init();
             curl_setopt_array($curl, array(
@@ -59,28 +66,35 @@
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer '.$_SESSION['token']
+            ),
             CURLOPT_POSTFIELDS => array(
                 'name' => $name,
                 'slug' => $slug,
                 'description' => $description,
                 'features' => $features,
-                //'cover'=> new CURLFILE('/C:/Users/jsoto/Downloads/00750101111561L.webp')
+                'brand_id' => $brand_id,
+                'cover'=> new CURLFILE($img)
             ),
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer '.$_SESSION['token']
-                ),
+               
             ));
 
             $response = curl_exec($curl);
             curl_close($curl);
             $response = json_decode($response);
+            echo $img;
 
             if(isset($response->code) && $response->code > 0){
                 //var_dump($response);
+                //var_dump($img);
                 header("Location: ../products?success=true");
             }else{
+
                 //var_dump($response);
+                //var_dump($img);
                 header("Location: ../products?error=true");
+                
             }
 
             
