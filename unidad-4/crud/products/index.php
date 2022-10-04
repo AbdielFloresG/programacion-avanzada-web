@@ -10,8 +10,8 @@
     
    
 
-    // foreach($brands as $brand):
-    //     echo $brand->name;
+    // foreach($products as $product):
+    //     var_dump($product);
     // endforeach;
 
 ?>
@@ -76,7 +76,7 @@
                                         <div class="row my-1 mx-auto">
                                             <div class="col-12 p-0">
                                         
-                                                <a href="./detalles.php" class="btn btn-primary w-100 py-3 mx-0 float-end">
+                                                <a href="./detalles.php?slug=<?php echo $product["slug"]?>" class="btn btn-primary w-100 py-3 mx-0 float-end">
                                                     Detalles
                                                 </a>
                                             </div>
