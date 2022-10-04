@@ -1,9 +1,19 @@
 <?php 
     session_start();
     include "../app/ProductsController.php";
+
     $token = $_SESSION["token"];
+    //echo $token;
     $productController = new ProductsController();
     $products = $productController->getProducts($token);
+    $brands = $productController->getBrands();
+    
+   
+
+    // foreach($brands as $brand):
+    //     echo $brand->name;
+    // endforeach;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,9 +125,14 @@
                                     <span class="input-group-text" id="basic-addon1">@</span>
                                     <input type="text" name="features" class="form-control" placeholder="Features" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">@</span>
-                                    <input type="text" name="brand_id" class="form-control" placeholder="Brand_id" aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="form-group">
+                                    <label for="brand_id" class="form-label">Brand</label>
+                                    <select class='form-control' name="brand_id" id="brand_id">
+                                    <option disabled selected value="">Seleccione un brand</option>
+                                    <?php foreach($brands as $brand): ?>
+                                        <option value="<?= $brand->id?>"><?= $brand->name ?></option>
+                                    <?php endforeach;?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="imagen" class="form-label">img</label>
