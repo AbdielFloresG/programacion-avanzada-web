@@ -43,9 +43,9 @@
                 $_SESSION['avatar'] = $response->data->avatar;
                 $_SESSION['token'] = $response->data->token;
                 
-                header("Location:../products");
+                header("Location:".BASE_PATH."products");
             }else{
-                header("Location:../?error=true");
+                header("Location:".BASE_PATH."?error=true");
             }
             #echo $response;
 

@@ -113,12 +113,12 @@
             if(isset($response->code) && $response->code > 0){
                 //var_dump($response);
                 //var_dump($img);
-                header("Location: ../products?success=true");
+                header("Location:".BASE_PATH."products?success=true");
             }else{
 
                 //var_dump($response);
                 //var_dump($img);
-                header("Location: ../products?error=true");
+                header("Location:".BASE_PATH."products?error=true");
                 
             }
 
@@ -158,12 +158,12 @@
             if(isset($response->code) && $response->code > 0){
                 //var_dump($response);
                 //var_dump($img);
-                header("Location: ../products?success=true");
+                header("Location:".BASE_PATH."products?success=true");
             }else{
 
                 //var_dump($response);
                 //var_dump($img);
-                header("Location: ../products?error=true");
+                header("Location:".BASE_PATH."products?error=true");
                 
             }
 
@@ -206,11 +206,8 @@
 
                 //var_dump($response);
                 //var_dump($img);
-                header("Location: ../products?error=true");
-                
+                header("Location:".BASE_PATH."products?error=true");
             }
-
-            
         }
 
         public function getBrands(){

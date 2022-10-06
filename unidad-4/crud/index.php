@@ -20,7 +20,7 @@ include_once "./app/config.php"
     
     <div class="container">
     
-        <form action="./app/AuthController.php" method="post" class="col-sm-12 col-md-6 mx-auto px-5 bg-secondary my-5 rounded-4 shadow">
+        <form action="<?= BASE_PATH ?>auth" method="post" class="col-sm-12 col-md-6 mx-auto px-5 bg-secondary my-5 rounded-4 shadow">
             <fieldset >
                 <div class="row">
                     <legend class="text-center my-4 fs-2">
