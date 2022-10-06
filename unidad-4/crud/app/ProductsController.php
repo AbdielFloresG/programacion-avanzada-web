@@ -3,42 +3,44 @@
     include_once "config.php";
 
     if(isset($_POST['action'])){
-        switch($_POST['action']){
-            case 'create': 
-                $name = strip_tags($_POST['name']);
-                $slug = strip_tags($_POST['slug']);
-                $description = strip_tags($_POST['description']);
-                $features = strip_tags($_POST['features']);
-                $brand_id = strip_tags($_POST['brand_id']);
-
-                $img = $_FILES["imagen"]["tmp_name"];
-
-                $productController = new ProductsController();
-
-                $productController->createProducts($name,$slug,$description,$features,$brand_id,$img);
-
-            break;
-            case 'edit':
-
-                $name = strip_tags($_POST['name']);
-                $slug = strip_tags($_POST['slug']);
-                $description = strip_tags($_POST['description']);
-                $features = strip_tags($_POST['features']);
-                $brand_id = strip_tags($_POST['brand_id']);
-                $id = strip_tags($_POST['id']);
-
-
-                $productController = new ProductsController();
-
-                $productController->editProducts($name,$slug,$description,$features,$brand_id,$id);
-
-            break;
-            case 'delete':
-                $id = strip_tags($_POST['id']);
-                $productController = new ProductsController();
-                $productController->deleteProducts($id);
-
-            break;
+        if(isset($_POST['token']) && $_POST['token'] == $_SESSION['global_token']){
+            switch($_POST['action']){
+                case 'create': 
+                    $name = strip_tags($_POST['name']);
+                    $slug = strip_tags($_POST['slug']);
+                    $description = strip_tags($_POST['description']);
+                    $features = strip_tags($_POST['features']);
+                    $brand_id = strip_tags($_POST['brand_id']);
+    
+                    $img = $_FILES["imagen"]["tmp_name"];
+    
+                    $productController = new ProductsController();
+    
+                    $productController->createProducts($name,$slug,$description,$features,$brand_id,$img);
+    
+                break;
+                case 'edit':
+    
+                    $name = strip_tags($_POST['name']);
+                    $slug = strip_tags($_POST['slug']);
+                    $description = strip_tags($_POST['description']);
+                    $features = strip_tags($_POST['features']);
+                    $brand_id = strip_tags($_POST['brand_id']);
+                    $id = strip_tags($_POST['id']);
+    
+    
+                    $productController = new ProductsController();
+    
+                    $productController->editProducts($name,$slug,$description,$features,$brand_id,$id);
+    
+                break;
+                case 'delete':
+                    $id = strip_tags($_POST['id']);
+                    $productController = new ProductsController();
+                    $productController->deleteProducts($id);
+    
+                break;
+            }
         }
     }
 

@@ -149,6 +149,7 @@
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
                                 <input id="hidden" type="hidden" name="action" value="create">
+                                <input type="hidden" name="token" value="<?= $_SESSION['global_token']?>">
                             </form>
                         </div>
                     </div>
@@ -180,6 +181,7 @@
             var bodyFormData = new FormData()
             bodyFormData.append('id',id)
             bodyFormData.append('action','delete')
+            bodyFormData.append('token','<?php echo $_SESSION['global_token']?>')
 
             axios.post('../app/ProductsController.php',bodyFormData)
             .then(function (response) {
