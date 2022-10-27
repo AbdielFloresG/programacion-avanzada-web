@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return Client::with('reservations')->get();
+        return Reservation::with('client')->get();
     }
 
     /**
@@ -41,21 +41,21 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Client::with('reservations')->find($id);
+        return Reservation::with('client')->find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Reservation $reservation)
     {
         //
     }
@@ -64,10 +64,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Reservation $reservation)
     {
         //
     }
@@ -75,10 +75,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Reservation $reservation)
     {
         //
     }

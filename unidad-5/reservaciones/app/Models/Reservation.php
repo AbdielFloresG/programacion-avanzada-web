@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Reservation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'phone_number',
-        'email',
+        'date',
+        'price',
+        'client_id',
     ];
 
-    public function reservations(){
-        return $this->hasMany(Reservation::class);
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
 }
