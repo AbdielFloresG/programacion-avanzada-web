@@ -34,8 +34,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $client = Client::create($request->all());
         // $client new Client();
         // $client->name = $request->name;
@@ -54,8 +53,7 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         return Client::with('reservations')->find($id);
     }
 
@@ -65,9 +63,10 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
-    {
-        //
+    public function edit($id){
+        $client = Client::with('reservations')->find($id);
+
+        return view('clients.update',compact('client'));
     }
 
     /**
@@ -77,9 +76,13 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request)
     {
-        //
+        $client = Client::find($request ->id);
+
+        $client->update($request->all());
+
+        return $client;
     }
 
     /**
