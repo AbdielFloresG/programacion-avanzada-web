@@ -14,7 +14,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return Client::with('reservations')->get();
+        $clients = Client::with('reservations')->get();
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $client = Client::create($request->all());
+        // $client new Client();
+        // $client->name = $request->name;
+        // $client->email = $request->email;
+        // $client->phone_number = $request->phone_number;
+
+        // $client->save();
+
+
+        return $client;
     }
 
     /**
