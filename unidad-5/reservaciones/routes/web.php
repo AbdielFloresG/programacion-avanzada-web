@@ -23,6 +23,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function(){
+    return view('auth.login');
+})->name('login');
+
+
+
+
+
+
 Route::get('saludo',function(){
     echo "Hola";
 });
@@ -43,6 +52,10 @@ Route::get('users/create',[UserController::class, 'create']);
 Route::get('users/{id}',[UserController::class,'show']);
 
 Route::post('users/', [UserController::class,'store']);
+
+Route::get('/prueba',function(){
+    return "hola";
+})->middleware("auth");
 
 
 
